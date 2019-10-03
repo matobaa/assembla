@@ -1,0 +1,24 @@
+table.stamprally {
+ border: 1px solid #ccc;
+ border-collapse: collapse;
+ border-spacing: 0;
+}
+table.stamprally th {
+ border: 1px solid #bbb;
+ padding: .1em .25em;
+ background-color: #f7f7f7;
+}
+table.stamprally td {
+	text-align: center; color: red; font-weight: bold;
+    background: url('../img/stamp.png') no-repeat;
+    background-position: center;
+    height: 64px; line-height: 2.8ex;
+    background-color: white;
+	border: 1px solid #ccc;  padding: .1em .25em;
+}
+table.stamprally td.void {
+	color: lightgray;
+	background: url('../img/stamp-void.png') no-repeat;
+    background-position: center;
+    width: 64px;
+}

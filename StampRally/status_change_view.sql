@@ -1,0 +1,1 @@
+create view status_change as select ticket, author, newvalue as status, max(time) as time from ticket_change where ticket_change.field = 'status' group by ticket, newvalue

@@ -1,0 +1,17 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      py:strip="True">
+  <div>
+<!--   	<h3>status change history</h3> -->
+  	<table class='stamprally'>
+  		<tbody><tr>
+  			<py:for each="c, s, t, b in comfirmer">
+  				<td class="${c}">${s}<br/><span style="font-size: 9px;">${t}</span><br/>${b}</td>
+  			</py:for>
+  		</tr></tbody>
+  	</table>
+  </div>
+</html>

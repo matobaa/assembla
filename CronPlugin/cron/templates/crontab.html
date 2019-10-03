@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:py="http://genshi.edgewall.org/">
+  <xi:include href="admin.html" />
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Edit Crontab</title>
+	</head>
+	<body>
+	    <h2>Crontab</h2>
+	    <form py:if='jobs' method="POST">
+	    <table class="listing">
+	    <thead>
+	    <tr class="trac-columns"><th title="min, hour, day, month, day_of_week (0:Sunday)">invoke cycle, in crontab format</th><th>job name</th></tr>
+	    <!-- 分 0-59 時 0-23 日 1-31 月 1-12 曜日 0-7 (0または7は日曜日） -->
+	    </thead>
+	    <tbody>
+	    <tr py:for='job in jobs or []'>
+	    	<td><input name="cron_$job.name" type="text" value="$job.cycle" /></td><td>$job.name</td>
+    	</tr>
+	    </tbody>
+	    </table>
+	    <input type="submit" />
+	    </form>
+	</body>
+</html>
+

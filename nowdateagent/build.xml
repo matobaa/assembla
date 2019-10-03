@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." default="build">
+	<property environment="env" />
+	<property name="ECLIPSE_HOME" value="../../eclipse" />
+	<property name="junit.output.dir" value="target/junit" />
+	<path id="m2lib">
+		<pathelement location="${env.M2_REPO}/javassist/javassist/3.12.1.GA/javassist-3.12.1.GA.jar" />
+	</path>
+	<path id="junitlib">
+		<pathelement location="${ECLIPSE_HOME}/plugins/org.junit_4.8.1.v4_8_1_v20100427-1100/junit.jar" />
+	</path>
+	<path id="classpath">
+		<pathelement location="target/classes" />
+		<path refid="m2lib" />
+		<pathelement location="target/test-classes" />
+		<path refid="junitlib" />
+	</path>
+	<path id="run.classpath">
+		<path refid="classpath" />
+		<path refid="m2lib" />
+	</path>
+	<target name="clean">
+		<delete file="target/**" dir="target" />
+		<delete file="dist/**" dir="dist" />
+	</target>
+	<target name="build">
+		<mkdir dir="target/classes" />
+		<javac destdir="target/classes"
+		       srcdir="src/main/java"
+		       classpathref="classpath" />
+		<mkdir dir="target/test-classes" />
+		<javac destdir="target/test-classes"
+		       srcdir="src/test/java"
+		       classpathref="classpath" />
+	</target>
+	<target name="package" depends="build">
+		<mkdir dir="dist" />
+		<jar destfile="dist/nowdateagent.jar"
+		     manifest="src/main/java/META-INF/MANIFEST.MF"
+		     basedir="target/classes" />
+	</target>
+	<target name="junit" depends="package">
+		<mkdir dir="${junit.output.dir}" />
+		<junit fork="yes" printsummary="withOutAndErr">
+			<formatter type="xml" />
+			<jvmarg value="-javaagent:dist/nowdateagent.jar" />
+			<test name="org.ocharake.matobaa.utlib.NowDateTest"
+			      todir="${junit.output.dir}" />
+			<classpath refid="run.classpath" />
+		</junit>
+	</target>
+	<target name="junitreport" depends="junit">
+		<junitreport todir="${junit.output.dir}">
+			<fileset dir="${junit.output.dir}">
+				<include name="TEST-*.xml" />
+			</fileset>
+			<report format="noframes" todir="${junit.output.dir}" />
+		</junitreport>
+	</target>
+</project>

@@ -1,0 +1,12 @@
+Metadata-Version: 1.1
+Name: NumberListToTicketList
+Version: 0.1
+Summary: TODO: Write here
+Home-page: http://trac-hacks.org/wiki/matobaa
+Author: MATOBA Akihiro
+Author-email: matobaa+trac-hacks@gmail.com
+License: Modified BSD
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Framework :: Trac
