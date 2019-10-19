@@ -1,15 +1,13 @@
 # -*- coding: utf-8 -*-
 
-from genshi.builder import tag
-from genshi.filters.transform import Transformer
 from pkg_resources import ResourceManager
 from trac.core import Component, implements
-from trac.web.api import ITemplateStreamFilter
+from trac.web.api import IRequestFilter
 from trac.web.chrome import add_script, ITemplateProvider
 
 
 class Handler(Component):
-    implements(ITemplateStreamFilter, ITemplateProvider)
+    implements(IRequestFilter, ITemplateProvider)
 
     # ITemplateProvider methods
     def get_htdocs_dirs(self):
@@ -18,12 +16,12 @@ class Handler(Component):
     def get_templates_dirs(self):
         return []
 
-    # ITemplateStreamFilter methods
-    def filter_stream(self, req, method, filename, stream, data):
-        if filename != 'search.html':
-            return stream
-        add_script(req, 'numberlisttoticketlist/js/onsubmit.js')
-        add_script(req, 'common/js/resizer.js')
-        return stream | Transformer('//div[@id="help"]').before(
-            tag.form(tag.textarea(rows='5', cols='40', class_='trac-resizable'),
-                     tag.input(type='submit', value='Show ticket list'), id='extsearch', action='#'))
+    # IRequestFilter methods
+    def pre_process_request(self, req, handler):
+        return handler
+
+    def post_process_request(self, req, template, data, content_type):
+        if template == 'search.html':
+            add_script(req, 'numberlisttoticketlist/js/onsubmit.js')
+            add_script(req, 'common/js/resizer.js')
+        return template, data, content_type
